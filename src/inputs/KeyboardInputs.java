@@ -5,6 +5,7 @@ import static utils.Constants.Directions.*;
 
 import java.awt.event.KeyListener;
 
+import gamestates.Gamestate;
 import main.GamePanel;
 
 public class KeyboardInputs implements KeyListener
@@ -24,57 +25,38 @@ public class KeyboardInputs implements KeyListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		switch(e.getKeyCode())
-		{
-			case KeyEvent.VK_W:
-				gamePanel.getGame().getPlayer().setUp(true);
-				break;
-			case KeyEvent.VK_A:
-				gamePanel.getGame().getPlayer().setLeft(true);
-				break;
-			case KeyEvent.VK_S:
-				gamePanel.getGame().getPlayer().setDown(true);
-				break;
-			case KeyEvent.VK_D:
-				gamePanel.getGame().getPlayer().setRight(true);
-				break;
-			case KeyEvent.VK_X:
-				gamePanel.getGame().getPlayer().setAttacking(true);
-				break;
-			case KeyEvent.VK_Q:
-				gamePanel.getGame().getPlayer().setStrongAttacking(true);
-				break;
-			case KeyEvent.VK_SPACE:
-				gamePanel.getGame().getPlayer().setJump(true);
-				break;
-		}
 		
+		switch (Gamestate.state)
+		 {
+			case MENU:
+				gamePanel.getGame().getMenu().keyPressed(e);
+				break;
+			case PLAYING:
+				gamePanel.getGame().getPlaying().keyPressed(e);
+				break;
+			default:
+				break;
+		 
+		 }
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		switch(e.getKeyCode())
-		{
-			case KeyEvent.VK_W:
-				gamePanel.getGame().getPlayer().setUp(false);
+		
+		 switch (Gamestate.state)
+		 {
+			case MENU:
+				gamePanel.getGame().getMenu().keyReleased(e);
 				break;
-			case KeyEvent.VK_A:
-				gamePanel.getGame().getPlayer().setLeft(false);
+			case PLAYING:
+				gamePanel.getGame().getPlaying().keyReleased(e);
 				break;
-			case KeyEvent.VK_S:
-				gamePanel.getGame().getPlayer().setDown(false);
+			default:
 				break;
-			case KeyEvent.VK_D:
-				gamePanel.getGame().getPlayer().setRight(false);
-				break;
-			case KeyEvent.VK_SPACE:
-				gamePanel.getGame().getPlayer().setJump(false);
-				break;
-//			case KeyEvent.VK_SPACE:
-//				gamePanel.getGame().getPlayer().setAttacking(false);
-//				break;
-		}
+		 
+		 }
+		
 		
 	}
 	
